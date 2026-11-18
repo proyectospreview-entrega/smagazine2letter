@@ -1,0 +1,127 @@
+/* Fondo negro estrellado */
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at bottom, #000 0%, #020111 100%);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+/* Contenedor del libro */
+.book-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  z-index: 1;
+}
+
+/* Página estilo revista */
+#book {
+  position: relative;
+  width: 90%;
+  height: 100%;
+}
+
+.page {
+  position: absolute;
+  width: 50%;
+  max-width: 600px;
+  aspect-ratio: 210 / 297; /* Proporción A4 vertical */
+  height: auto;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-size: contain; /* Mantiene toda la imagen visible */
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  z-index: 1;
+  opacity: 0;
+}
+
+.page.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Página única: portada y contraportada */
+.page.single {
+  width: 90%;
+  max-width: 600px;
+  aspect-ratio: 210 / 297;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* Doble página escritorio */
+@media(min-width: 768px){
+  #book.double .page.left {
+    left: 0;
+    transform: translateX(0%);
+  }
+  #book.double .page.right {
+    left: 50%;
+    transform: translateX(0%);
+  }
+  .page {
+    width: 50%;
+    max-width: none;
+    aspect-ratio: 210 / 297;
+  }
+}
+
+/* Móvil: página única */
+@media(max-width:767px){
+  .page {
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 210 / 297;
+  }
+  #book.double .page.left,
+  #book.double .page.right{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* Animación de entrada/salida de página */
+.page.slide-left-in {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.page.slide-left-out {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.page.slide-right-in {
+  transform: translateX(0%);
+  opacity: 1;
+}
+
+.page.slide-right-out {
+  transform: translateX(100%);
+  opacity: 0;
+}
